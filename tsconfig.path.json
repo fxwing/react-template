@@ -1,13 +1,15 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@component/*": [
-        "src/component/*"
-      ]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@component/*": ["src/component/*"],
+            "@style/*": ["src/style/*"],
+            "@config/*": ["src/config/*"],
+            "@layout/*": ["src/layout/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@router/*": ["src/router/*"],
+            "@store/*": ["src/store/*"]
+        }
     }
-  }
 }
