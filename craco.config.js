@@ -40,7 +40,7 @@ module.exports = {
                 // css module 也支持antd的引入
                 cssLoaderOptions: {
                     modules: {
-                        localIdentName: '[local]_[hash:base64:5]',
+                        // localIdentName: '[local]_[hash:base64:5]',
                         // 回调必须返回 `local`，`global`，或者 `pure`
                         mode: (resourcePath) => {
                             if (/pure\.(less|css)$/i.test(resourcePath)) {

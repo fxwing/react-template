@@ -1,7 +1,7 @@
 /**
  * route 的配置文件
  */
-import React, { lazy } from 'react';
+import React from 'react';
 
 export interface IRouteMate {
     title: string;
@@ -17,17 +17,71 @@ export interface IRouteBase {
 export interface IRoute extends IRouteBase {
     children?: IRoute[];
 }
-// 懒加载引入路由
-const lazyImport = (path: string) => lazy(() => import(path));
 // 默认全部路由配置
+// 第一级路由为最外层路由   方便以后在系统外拓展
 export const routes: Array<IRoute> = [
     {
+        path: '/system',
+        component: React.lazy(() => import('../layout/UserLayout')),
+        meta: {
+            title: '系统路由'
+        },
+        redirect: '/system/login',
+        children: [
+            {
+                path: '/system/login',
+                component: React.lazy(() => import('../view/system/login/index')),
+                meta: {
+                    title: '登录'
+                }
+            }
+        ]
+    },
+    {
         path: '/',
-        component: lazyImport('../layout/index'),
+        component: React.lazy(() => import('../layout/index')),
         meta: {
             title: '系统'
         },
-        redirect: '/dashborad/intro'
-        // children: [ ];
+        redirect: '/dashborad/intro',
+        children: []
+    },
+
+    // error 路由
+    {
+        path: '/error',
+        meta: {
+            title: '错误页面'
+        },
+        component: React.lazy(() => import('../view/error/404')),
+        redirect: '/error/404',
+        children: [
+            {
+                path: '/error/404',
+                auth: false,
+                component: React.lazy(() => import('../view/error/404')),
+                meta: {
+                    title: '页面不存在'
+                }
+            },
+            {
+                path: '/error/403',
+                auth: false,
+                component: React.lazy(() => import('../view/error/403')),
+                meta: {
+                    title: '暂无权限'
+                }
+            }
+        ]
+    },
+    // 其他路由
+    {
+        path: '/*',
+        auth: false,
+        component: React.lazy(() => import('../view/error/404')),
+        redirect: '/error/404',
+        meta: {
+            title: '错误页面'
+        }
     }
 ];
