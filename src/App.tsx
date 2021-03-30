@@ -4,11 +4,10 @@ import { Spin } from 'antd';
 import { layoutRouteList } from '@router/utils';
 import type { IRoute } from '@router/config';
 import { config } from '@config/index';
-
-import style from '@style/index.less';
+import '@style/index.less';
 
 function App() {
-    const fallback = <Spin size="large" className={style.layout__loading}></Spin>;
+    const fallback = <Spin size="large" className="layout__loading"></Spin>;
     const basename = config.BASENAME!;
     console.log(layoutRouteList);
 

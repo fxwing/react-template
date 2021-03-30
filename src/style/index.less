@@ -1,12 +1,49 @@
 @import './var.less';
 
 //公共的style
-
-.layout {
-    &__loading {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+// 全局的样式
+// 加上global 就可以  直接使用  不用module 引入
+:global {
+    .layout {
+        &__loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    // 水平
+    .justify {
+        &--between {
+            display: flex;
+            justify-content: space-between;
+        }
+        &--around {
+            display: flex;
+            justify-content: space-around;
+        }
+        &--left {
+            display: flex;
+            justify-content: flex-start;
+        }
+        &--right {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+    // 垂直方向
+    .align {
+        &--center {
+            display: flex;
+            align-items: center;
+        }
+        &--top {
+            display: flex;
+            align-items: flex-start;
+        }
+        &--bottom {
+            display: flex;
+            align-items: flex-end;
+        }
     }
 }

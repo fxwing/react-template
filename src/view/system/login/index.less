@@ -1,3 +1,4 @@
+@loginOtherColor: #333;
 .page_login {
     width: 300px;
     // :global(.ant-tabs-bar) {
@@ -15,5 +16,13 @@
         .ant-tabs-nav-container {
             font-size: 14px;
         }
+    }
+}
+
+.login_others {
+    color: @loginOtherColor;
+    &_icon {
+        margin-left: 10px;
+        font-size: 18px;
     }
 }
