@@ -18,7 +18,7 @@ export interface IRoute extends IRouteBase {
     children?: IRoute[];
 }
 // 默认全部路由配置
-// 第一级路由为最外层路由   方便以后在系统外拓展
+// 第一级路由为最外层路由   方便以后在进入系统外拓展
 export const routes: Array<IRoute> = [
     {
         path: '/system',
@@ -53,7 +53,6 @@ export const routes: Array<IRoute> = [
         meta: {
             title: '错误页面'
         },
-        component: React.lazy(() => import('../view/error/404')),
         redirect: '/error/404',
         children: [
             {
@@ -78,7 +77,6 @@ export const routes: Array<IRoute> = [
     {
         path: '/*',
         auth: false,
-        component: React.lazy(() => import('../view/error/404')),
         redirect: '/error/404',
         meta: {
             title: '错误页面'

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 import { layoutRouteList } from '@router/utils';
 import type { IRoute } from '@router/config';
@@ -16,6 +16,8 @@ function App() {
         <Suspense fallback={fallback}>
             <Router basename={basename}>
                 <Switch>
+                    {/* 方便开发  定位到当前路由 */}
+                    <Redirect exact path="/" to="/system/login"></Redirect>
                     {layoutRouteList.map((route: IRoute) => {
                         return (
                             <Route
