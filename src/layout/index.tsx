@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import './index.less';
+import React, { memo } from 'react';
+import type { FC } from 'react';
+import type { RouteComponentProps } from 'react-router-dom';
+import style from './index.less';
 
-interface Props {}
-interface State {}
+interface Props extends RouteComponentProps {}
 
-export default class index extends Component<Props, State> {
-    state = {};
+//   系统的第一入口
+const Layout: FC<Props> = (props: Props) => {
+    return (
+        <>
+            <section className={style.layout}></section>
+        </>
+    );
+};
 
-    render() {
-        return (
-            <>
-                <section className="layout ">这是layout 进入系统</section>
-            </>
-        );
-    }
-}
+export default memo(Layout);

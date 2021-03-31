@@ -1,6 +1,6 @@
 import React, { useState, useCallback, ChangeEventHandler } from 'react';
 import type { MouseEvent, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Form, Tabs, Button, Checkbox } from 'antd';
 import { GithubOutlined, ZhihuOutlined } from '@ant-design/icons';
 // import useCount from '@hooks/useCount';
@@ -11,7 +11,7 @@ import style from './index.less';
 
 const { TabPane } = Tabs;
 const cx = classNames.bind(style);
-interface Props {}
+interface Props extends RouteComponentProps {}
 interface FormProps {
     account?: string;
     password?: string;
@@ -28,6 +28,7 @@ const Login = (props: Props) => {
     const onSubmit = useCallback(() => {
         form.validateFields().then((res: Partial<FormProps>) => {
             const values = res;
+            props.history.push('/');
             console.log(values);
         });
     }, []);

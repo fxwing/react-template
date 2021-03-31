@@ -9,7 +9,7 @@ interface Props {}
 
 const { Step } = Steps;
 
-interface InitIalState {
+interface State {
     mobile: string;
     code: string;
     password: string;
@@ -18,46 +18,53 @@ interface Actions {
     type: string;
     payload?: any;
 }
-const initialState: InitIalState = {
+const initialState: State = {
     mobile: '',
     code: '',
     password: ''
 };
 
-function reducer(initialState: InitIalState, actions: Actions): InitIalState {
+function reducer(state: State = initialState, actions: Actions): State {
     switch (actions.type) {
         case 'changeMobile':
-            return { ...initialState, mobile: actions.payload };
+            return { ...state, mobile: actions.payload };
         case 'changeCode':
-            return { ...initialState, code: actions.payload };
+            return { ...state, code: actions.payload };
         case 'changePassword':
-            return { ...initialState, password: actions.payload };
+            return { ...state, password: actions.payload };
         default:
-            return { ...initialState };
+            return { ...state };
     }
 }
 
 const RecoveryPwd: FC<Props> = (props: Props) => {
     const [form] = Form.useForm();
     const [current, setCurrent] = useState<number>(0);
-    const [state, dispatch]: [InitIalState, Dispatch<Actions>] = useReducer(reducer, initialState);
+    const [state, dispatch]: [State, Dispatch<Actions>] = useReducer(reducer, initialState);
 
     const onSubmit = useCallback(() => {
-        form.validateFields().then((res) => {
-            if (res.mobile) {
-                dispatch({ type: 'changeMobile', payload: res.mobile });
-            }
-            if (res.code) {
-                dispatch({ type: 'changeCode', payload: res.code });
-            }
-            if (res.password) {
-                dispatch({ type: 'changePassword', payload: res.password });
-                console.log(state);
-            }
-
-            if (current === 0) setCurrent((current) => current + 1);
-        });
-    }, []);
+        // 分开检测
+        if (current === 0) {
+            form.validateFields(['mobile', 'code']).then((res) => {
+                if (res.mobile) {
+                    dispatch({ type: 'changeMobile', payload: res.mobile });
+                }
+                if (res.code) {
+                    dispatch({ type: 'changeCode', payload: res.code });
+                }
+            });
+        }
+        if (current === 1) {
+            form.validateFields(['password']).then((res) => {
+                if (res.password) {
+                    //直接在这里掉的接口  没有修改redux
+                    console.log({ ...state, password: res.password });
+                    dispatch({ type: 'changePassword', payload: res.mobile });
+                }
+            });
+        }
+        setCurrent((current) => current + 1);
+    }, [state]);
 
     return (
         <>
@@ -94,8 +101,10 @@ const RecoveryPwd: FC<Props> = (props: Props) => {
                                         status="success"
                                         title="修改成功!"
                                         extra={[
-                                            <Link to="/system/login">
-                                                <Button type="primary">去 登 录</Button>
+                                            <Link to="/system/login" key="link">
+                                                <Button type="primary" key="button">
+                                                    去 登 录
+                                                </Button>
                                             </Link>
                                         ]}
                                     ></Result>

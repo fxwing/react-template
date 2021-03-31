@@ -9,14 +9,14 @@ import '@style/index.less';
 function App() {
     const fallback = <Spin size="large" className="layout__loading"></Spin>;
     const basename = config.BASENAME!;
-    console.log(layoutRouteList);
+    // console.log(layoutRouteList);
 
     return (
         <Suspense fallback={fallback}>
             <Router basename={basename}>
                 <Switch>
                     {/* 方便开发  定位到当前路由 */}
-                    <Redirect exact path="/" to="/system/login"></Redirect>
+                    {/* <Redirect exact path="/" to="/system/login"></Redirect> */}
                     {layoutRouteList.map((route: IRoute) => {
                         return (
                             <Route

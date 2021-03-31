@@ -37,7 +37,7 @@ export default class UserLayout extends PureComponent<Props, State> {
         }
 
         const title = getPageTitle(systemRouteList);
-        console.log(systemRouteList);
+        //console.log(systemRouteList);
 
         return (
             <>
