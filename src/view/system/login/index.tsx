@@ -1,21 +1,30 @@
 import React, { useState, useCallback, ChangeEventHandler } from 'react';
-import type { MouseEvent, ChangeEvent } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Form, Tabs, Button, Checkbox } from 'antd';
-import { GithubOutlined, ZhihuOutlined } from '@ant-design/icons';
-// import useCount from '@hooks/useCount';
+import { nanoid } from 'nanoid';
 import classNames from 'classnames/bind';
+import { Form, Tabs, Button, Checkbox } from 'antd';
+import { connect } from 'react-redux';
+import { GithubOutlined, ZhihuOutlined } from '@ant-design/icons';
+import { setToken } from '@/utils/cookie';
+import { localStore } from '@/utils/store';
+import { config } from '@config/index';
 import FormWrap from '../component/FormWrap';
 import LoginItem from '../component/LoginItem';
+import { setUserInfo } from '@/store/module/user';
 import style from './index.less';
+// 引入type
+import type { MouseEvent, ChangeEvent } from 'react';
+import type { UserState } from '@store/module/user';
 
 const { TabPane } = Tabs;
 const cx = classNames.bind(style);
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+    setUserInfo(userInfo: UserState): void;
+}
 interface FormProps {
     account?: string;
     password?: string;
-    mobile?: number;
+    mobile?: string;
     code?: number;
 }
 
@@ -27,9 +36,20 @@ const Login = (props: Props) => {
     }, []);
     const onSubmit = useCallback(() => {
         form.validateFields().then((res: Partial<FormProps>) => {
-            const values = res;
+            // 这里模拟一个  token  存到cookie
+            const token = nanoid();
+            setToken(token);
+            // 将用户的信息存到本地
+            const localData: UserState = {
+                id: nanoid(),
+                token,
+                account: res.account!,
+                mobile: res.mobile!
+            };
+            localStore.setValue(config.USER_LOCAL_KEY, localData);
+            props.setUserInfo(localData);
+            console.log(res);
             props.history.push('/');
-            console.log(values);
         });
     }, []);
     // const [count, onBeginCount, onEndCount] = useCount(60);
@@ -80,4 +100,9 @@ const Login = (props: Props) => {
     );
 };
 
-export default Login;
+export default connect(
+    (state) => {
+        return {};
+    },
+    { setUserInfo }
+)(Login);
