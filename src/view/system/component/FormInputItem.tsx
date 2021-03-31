@@ -39,46 +39,44 @@ const FormInputItem: FC<IProps> = (props: IProps) => {
         }
     }
     return (
-        <>
-            <div {...formProps}>
-                {(() => {
-                    switch (inputProps.type) {
-                        case 'password':
-                            return (
-                                <Form.Item {...formProps}>
-                                    <Input.Password {...inputProps}></Input.Password>
-                                </Form.Item>
-                            );
-                        // 验证码
-                        case 'code':
-                            return (
-                                <Row gutter={10}>
-                                    <Col span={16}>
-                                        <Form.Item {...formProps}>
-                                            <Input {...inputProps}></Input>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Button
-                                            block
-                                            disabled={(countStatic || COUNT_STATIC) !== count}
-                                            onClick={onTimerClick}
-                                        >
-                                            {count === COUNT_STATIC ? '验证码' : `${count}`}
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            );
-                        default:
-                            return (
-                                <Form.Item {...formProps}>
-                                    <Input {...inputProps}></Input>
-                                </Form.Item>
-                            );
-                    }
-                })()}
-            </div>
-        </>
+        <div>
+            {(() => {
+                switch (inputProps.type) {
+                    case 'password':
+                        return (
+                            <Form.Item {...formProps}>
+                                <Input.Password {...inputProps}></Input.Password>
+                            </Form.Item>
+                        );
+                    // 验证码
+                    case 'code':
+                        return (
+                            <Row gutter={10}>
+                                <Col span={16}>
+                                    <Form.Item {...formProps}>
+                                        <Input {...inputProps}></Input>
+                                    </Form.Item>
+                                </Col>
+                                <Col span={8}>
+                                    <Button
+                                        block
+                                        disabled={(countStatic || COUNT_STATIC) !== count}
+                                        onClick={onTimerClick}
+                                    >
+                                        {count === COUNT_STATIC ? '验证码' : `${count}`}
+                                    </Button>
+                                </Col>
+                            </Row>
+                        );
+                    default:
+                        return (
+                            <Form.Item {...formProps}>
+                                <Input {...inputProps}></Input>
+                            </Form.Item>
+                        );
+                }
+            })()}
+        </div>
     );
 };
 

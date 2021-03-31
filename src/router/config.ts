@@ -34,6 +34,27 @@ export const routes: Array<IRoute> = [
                 meta: {
                     title: '登录'
                 }
+            },
+            {
+                path: '/system/register',
+                component: React.lazy(() => import('../view/system/register/index')),
+                meta: {
+                    title: '注册'
+                }
+            },
+            {
+                path: '/system/register-result/:id',
+                component: React.lazy(() => import('../view/system/registerResult/index')),
+                meta: {
+                    title: '注册结果'
+                }
+            },
+            {
+                path: '/system/recovery-pwd',
+                component: React.lazy(() => import('../view/system/recoveryPwd/index')),
+                meta: {
+                    title: '找回密码'
+                }
             }
         ]
     },

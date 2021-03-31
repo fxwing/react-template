@@ -11,7 +11,7 @@ interface LoginItemProps {
 
 const messageKey: string = 'login-message';
 
-const loginItem = ['Account', 'Password', 'Mobile', 'Code'] as const;
+const loginItem = ['Account', 'Password', 'Mobile', 'Code', 'Confirm'] as const;
 ////#region
 // type LoginItem = 'Account' | 'Password' | 'Mobile' | 'Code';
 //#endregion
@@ -87,6 +87,21 @@ const config: LoginConfig = {
             children: null,
             rules: [{ required: true, message: '请输入验证码', len: 6 }]
         }
+    },
+    // 检验密码
+    Confirm: {
+        inputProps: {
+            id: 'confirm',
+            prefix: <LockOutlined />,
+            placeholder: '大于6位的密码',
+            type: 'password',
+            visibilityToggle: true
+        },
+        formProps: {
+            hasFeedback: true,
+            name: 'confirm',
+            rules: [{ required: true, message: '请输入合法密码', min: 5 }]
+        }
     }
 };
 
@@ -139,11 +154,31 @@ function Code(props: LoginItemProps) {
         ></FormInputItem>
     );
 }
+
+// confirm  组件
+function Confirm(props: { form: FormInstance }) {
+    const configs = config['Confirm'];
+    configs.formProps.rules = [
+        { required: true, message: '请输入合法密码' },
+        ({ getFieldValue }) => ({
+            validator(_, value) {
+                console.log(getFieldValue('password'));
+                if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                }
+                return Promise.reject(new Error('两次输入的密码不一致，请重新输入'));
+            }
+        })
+    ];
+    console.log(configs);
+    return <FormInputItem {...props} {...configs}></FormInputItem>;
+}
 const LoginItem: LoginItemType = {
     Account: memo(Account),
     Password: memo(Password),
     Mobile: memo(Mobile),
-    Code: memo(Code)
+    Code: memo(Code),
+    Confirm: memo(Confirm)
 };
 
 export default LoginItem;
