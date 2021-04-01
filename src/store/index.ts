@@ -5,12 +5,14 @@ import ReduxLogger from 'redux-logger';
 // redux 浏览器工具
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import userReducer from './module/user';
+import settingReducer from './module/setting';
 
 import type { Reducer, Store, Middleware, AnyAction } from 'redux';
-import type { IStoreState } from './type';
+import type { IStoreState, IAction } from './type';
 
-const reducers: Reducer<IStoreState, AnyAction> = combineReducers<IStoreState>({
-    user: userReducer
+const reducers: Reducer<IStoreState, IAction> = combineReducers<IStoreState>({
+    user: userReducer,
+    setting: settingReducer
 });
 const middlewares: Middleware[] = [ReduxThunk];
 
