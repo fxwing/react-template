@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
-import SlideBar from '@component/SlideBar';
+import LayoutSlideBar from '@/component/LayoutSlideBar';
 import type { FC } from 'react';
 import type { DefaultRootState } from 'react-redux';
 import type { RouteComponentProps } from 'react-router-dom';
@@ -24,7 +24,7 @@ const Layout: FC<Props> = (props: Props) => {
                     'layout--side-bar': layout === 'side'
                 })}
             >
-                {layout === 'side' ? <SlideBar></SlideBar> : null}
+                {layout === 'side' ? <LayoutSlideBar></LayoutSlideBar> : null}
             </section>
         </>
     );
