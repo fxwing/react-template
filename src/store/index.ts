@@ -6,13 +6,15 @@ import ReduxLogger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import userReducer from './module/user';
 import settingReducer from './module/setting';
+import appReducer from './module/app';
 
 import type { Reducer, Store, Middleware, AnyAction } from 'redux';
 import type { IStoreState, IAction } from './type';
 
 const reducers: Reducer<IStoreState, IAction> = combineReducers<IStoreState>({
     user: userReducer,
-    setting: settingReducer
+    setting: settingReducer,
+    app: appReducer
 });
 const middlewares: Middleware[] = [ReduxThunk];
 

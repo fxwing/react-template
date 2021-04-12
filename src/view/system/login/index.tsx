@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import classNames from 'classnames/bind';
 import { Form, Tabs, Button, Checkbox } from 'antd';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GithubOutlined, ZhihuOutlined } from '@ant-design/icons';
 import { setToken } from '@/utils/cookie';
 import { localStore } from '@/utils/store';
@@ -30,6 +30,7 @@ interface FormProps {
 
 const Login = (props: Props) => {
     const [activeTab, setActiveTab] = useState<string>('account');
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
     const changeActiveTab = useCallback((activeTab: string) => {
         setActiveTab(activeTab);
@@ -47,7 +48,9 @@ const Login = (props: Props) => {
                 mobile: res.mobile!
             };
             localStore.setValue(config.USER_LOCAL_KEY, localData);
-            props.setUserInfo(localData);
+            //props.setUserInfo(localData);
+            // 使用dispatch  替换掉connect
+            dispatch(setUserInfo(localData));
             console.log(res);
             props.history.push('/');
         });
@@ -100,9 +103,4 @@ const Login = (props: Props) => {
     );
 };
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    { setUserInfo }
-)(Login);
+export default Login;

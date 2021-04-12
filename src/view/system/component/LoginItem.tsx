@@ -111,7 +111,7 @@ function Account(props: LoginItemProps) {
 }
 
 // 密码 组件
-function Password(props: LoginItemProps) {
+function Password(props: LoginItemProps): React.ReactElement {
     return <FormInputItem {...props} {...config['Password']}></FormInputItem>;
 }
 

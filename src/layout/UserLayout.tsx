@@ -6,8 +6,6 @@ import Helmet from '@component/Helmet';
 import { getPageTitle, systemRouteList } from '@router/utils';
 import style from './userLayout.less';
 
-console.log(style);
-
 interface Props {}
 interface State {
     isError: boolean;

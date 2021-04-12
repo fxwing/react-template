@@ -20,6 +20,7 @@ export interface IRoute extends IRouteBase {
 // 默认全部路由配置
 // 第一级路由为最外层路由   方便以后在进入系统外拓展
 export const routes: Array<IRoute> = [
+    // 登陆注册
     {
         path: '/system',
         component: React.lazy(() => import('../layout/UserLayout')),
@@ -58,14 +59,50 @@ export const routes: Array<IRoute> = [
             }
         ]
     },
+    // 系统业务路由
     {
         path: '/',
         component: React.lazy(() => import('../layout/index')),
         meta: {
             title: '系统'
         },
-        redirect: '/dashborad/intro',
-        children: []
+        redirect: '/page1/one',
+        children: [
+            {
+                path: '/page1',
+                redirect: '/page1/one',
+                meta: {
+                    title: 'page1',
+                    icon: 'dashborad'
+                },
+                children: [
+                    {
+                        path: '/page1/one',
+                        component: React.lazy(() => import('../view/page1')),
+                        meta: {
+                            title: 'page1/one'
+                        }
+                    }
+                ]
+            },
+            {
+                path: '/page2',
+                redirect: '/page2/one',
+                meta: {
+                    title: 'page2',
+                    icon: 'dashborad'
+                },
+                children: [
+                    {
+                        path: '/page2/one',
+                        component: React.lazy(() => import('../view/page2')),
+                        meta: {
+                            title: 'page2/one'
+                        }
+                    }
+                ]
+            }
+        ]
     },
 
     // error 路由

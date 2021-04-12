@@ -9,7 +9,7 @@ import '@style/index.less';
 function App() {
     const fallback = <Spin size="large" className="layout__loading"></Spin>;
     const basename = config.BASENAME!;
-    // console.log(layoutRouteList);
+    //console.log(layoutRouteList);
 
     return (
         <Suspense fallback={fallback}>
