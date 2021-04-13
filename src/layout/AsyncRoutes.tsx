@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spin } from 'antd';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Switch } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import { setSideBarRoutes } from '../store/module/app';
 import type { FC, ReactElement, ReactNode } from 'react';
 import type { IStoreState } from '../store/type';
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const TransitionMain: FC<{ children: ReactNode }> = ({ children }: { children: ReactNode }) => {
+    const location = useLocation();
     return (
         <>
             <TransitionGroup>

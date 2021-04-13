@@ -50,7 +50,7 @@ const userReducer: Reducer<UserState, IAction> = (
             localStore.removeValue(config.USER_LOCAL_KEY);
             return { ...state };
         default:
-            return { ...payload };
+            return { ...state };
     }
 };
 

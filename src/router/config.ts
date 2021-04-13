@@ -101,43 +101,43 @@ export const routes: Array<IRoute> = [
                         }
                     }
                 ]
-            }
-        ]
-    },
-
-    // error 路由
-    {
-        path: '/error',
-        meta: {
-            title: '错误页面'
-        },
-        redirect: '/error/404',
-        children: [
-            {
-                path: '/error/404',
-                auth: false,
-                component: React.lazy(() => import('../view/error/404')),
-                meta: {
-                    title: '页面不存在'
-                }
             },
+            // error 路由
             {
-                path: '/error/403',
-                auth: false,
-                component: React.lazy(() => import('../view/error/403')),
+                path: '/error',
                 meta: {
-                    title: '暂无权限'
-                }
+                    title: '错误页面'
+                },
+                redirect: '/error/404',
+                children: [
+                    {
+                        path: '/error/404',
+                        auth: false,
+                        component: React.lazy(() => import('../view/error/404')),
+                        meta: {
+                            title: '页面不存在'
+                        }
+                    },
+                    {
+                        path: '/error/403',
+                        auth: false,
+                        component: React.lazy(() => import('../view/error/403')),
+                        meta: {
+                            title: '暂无权限'
+                        }
+                    }
+                ]
             }
         ]
-    },
-    // 其他路由
-    {
-        path: '/*',
-        auth: false,
-        redirect: '/error/404',
-        meta: {
-            title: '错误页面'
-        }
     }
+
+    // 其他路由
+    // {
+    //     path: '/*',
+    //     auth: false,
+    //     redirect: '/error/404',
+    //     meta: {
+    //         title: '错误页面'
+    //     }
+    // }
 ];

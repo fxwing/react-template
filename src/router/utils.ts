@@ -31,13 +31,21 @@ function getSystemRoute(): IRoute[] {
     if (routeList.length) return flattenRoute(routeList, true, false);
     return [];
 }
+// 获取业务路由
+function getBusinessRoute(): IRoute[] {
+    const routeList = routes.filter((r) => r.path === '/');
+    if (routeList.length) return flattenRoute(routeList[0].children!, true, true);
+    return [];
+}
 // 最外层路由
 export const layoutRouteList: IRoute[] = getLayoutRoute();
 // 登陆注册路由
 export const systemRouteList: IRoute[] = getSystemRoute();
-
+// 业务路由
+export const businessRouteList: Array<IRoute> = getBusinessRoute();
+// export const
 // 根据pathname  获取当前路由的名字
 export function getPageTitle(routeList: IRoute[]): string {
     const route = routeList.find((route) => route.path === window.location.pathname);
-    return route ? route.meta.title : '';
+    return route ? route?.meta?.title : '';
 }
