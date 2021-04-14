@@ -19,6 +19,7 @@ export interface IRoute extends IRouteBase {
 }
 // 默认全部路由配置
 // 第一级路由为最外层路由   方便以后在进入系统外拓展
+// 一共 两个路由  一个登录  一个系统
 export const routes: Array<IRoute> = [
     // 登陆注册
     {
@@ -127,17 +128,16 @@ export const routes: Array<IRoute> = [
                         }
                     }
                 ]
+            },
+            // 其他路由
+            {
+                path: '/*',
+                auth: false,
+                redirect: '/error/404',
+                meta: {
+                    title: '错误页面'
+                }
             }
         ]
     }
-
-    // 其他路由
-    // {
-    //     path: '/*',
-    //     auth: false,
-    //     redirect: '/error/404',
-    //     meta: {
-    //         title: '错误页面'
-    //     }
-    // }
 ];

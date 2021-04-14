@@ -14,7 +14,7 @@ const cx = classNames.bind(style);
 interface Props extends RouteComponentProps, IStoreState {}
 //   系统的第一入口
 const Layout: FC<Props> = (props: Props) => {
-    console.log('layout的props', props);
+    // console.log('layout的props', props);
     // 不是通过注入props中使用  放弃connect
     // 默认使用的 === 全等比较 对象的时候 最好使用浅比较
     const { layout } = useSelector((state: IStoreState) => state.setting, shallowEqual);

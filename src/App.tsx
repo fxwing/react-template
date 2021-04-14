@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 import { layoutRouteList } from '@router/utils';
+import type { RouteComponentProps } from 'react-router-dom';
 import type { IRoute } from '@router/config';
 import { config } from '@config/index';
 import '@style/index.less';
@@ -22,7 +23,10 @@ function App() {
                             <Route
                                 key={route.path}
                                 path={route.path}
-                                component={route.component}
+                                // component={route.component}
+                                render={(props: RouteComponentProps) => {
+                                    return <route.component {...props}></route.component>;
+                                }}
                             ></Route>
                         );
                     })}

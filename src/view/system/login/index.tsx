@@ -51,7 +51,12 @@ const Login = (props: Props) => {
             //props.setUserInfo(localData);
             // 使用dispatch  替换掉connect
             dispatch(setUserInfo(localData));
-            console.log(res);
+            const url = new URL(window.location.href);
+            const redirect = url.searchParams.get('redirectUrl');
+            if (redirect) {
+                window.location.href = redirect;
+                return;
+            }
             props.history.push('/');
         });
     }, []);

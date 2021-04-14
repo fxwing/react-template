@@ -10,40 +10,40 @@ import type { FC, ReactNode, ReactElement } from 'react';
 import type { RouteComponentProps } from 'react-router-dom';
 import type { IRoute } from '@router/config';
 interface Props {}
-
-function renderRoute(route: IRoute): ReactNode {
-    const title = getPageTitle(businessRouteList);
-    const { component: Component, path, redirect } = route;
-    return (
-        <Route
-            key={path}
-            exact
-            path={path}
-            render={(props: RouteComponentProps) => {
-                return (
-                    <Auth>
-                        <Helmet title={title} />
-                        {redirect ? <Redirect to={redirect} /> : <Component {...props}></Component>}
-                    </Auth>
-                );
-            }}
-        ></Route>
-    );
-}
-
+//   样式简洁一点
 function renderRouteList(routeList: IRoute[]): ReactNode {
+    function renderRoute(route: IRoute): ReactNode {
+        const title = getPageTitle(businessRouteList);
+        const { component: CurrComponent, path, redirect } = route;
+        return (
+            <Route
+                key={path}
+                exact={path !== '*'}
+                path={path}
+                render={(props: RouteComponentProps) => {
+                    return (
+                        <Auth route={route} {...props}>
+                            <Helmet title={title} />
+                            {redirect ? (
+                                <Redirect to={redirect} push></Redirect>
+                            ) : (
+                                <CurrComponent {...props}></CurrComponent>
+                            )}
+                        </Auth>
+                    );
+                }}
+            ></Route>
+        );
+    }
     return businessRouteList.map(renderRoute);
 }
 
 const MainRoutes: FC<Props> = (props: Props): ReactElement => {
-    console.log(businessRouteList);
     const routeList = useMemo(() => renderRouteList(businessRouteList), []);
+    console.log(businessRouteList, routeList);
     return (
         <>
-            <AsyncRoutes>
-                {routeList}
-                <Redirect to="/error"></Redirect>
-            </AsyncRoutes>
+            <AsyncRoutes>{routeList}</AsyncRoutes>
         </>
     );
 };

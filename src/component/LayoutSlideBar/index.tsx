@@ -11,6 +11,7 @@ interface Props {}
 function LayoutSliderBar({}: Props): ReactElement {
     return (
         <>
+            这里有一个menu
             <Menu></Menu>
         </>
     );

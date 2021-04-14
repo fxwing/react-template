@@ -57,20 +57,20 @@ const defaultRoute = [
                 }
             }
         ]
-    },
-    {
-        path: '/page2',
-        meta: {
-            title: 'page2',
-            icon: 'dashborad'
-        },
-        children: [
-            {
-                path: '/page2/one',
-                meta: {
-                    title: 'page2/one'
-                }
-            }
-        ]
     }
+    // {
+    //     path: '/page2',
+    //     meta: {
+    //         title: 'page2',
+    //         icon: 'dashborad'
+    //     },
+    //     children: [
+    //         {
+    //             path: '/page2/one',
+    //             meta: {
+    //                 title: 'page2/one'
+    //             }
+    //         }
+    //     ]
+    // }
 ];

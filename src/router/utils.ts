@@ -34,7 +34,7 @@ function getSystemRoute(): IRoute[] {
 // 获取业务路由
 function getBusinessRoute(): IRoute[] {
     const routeList = routes.filter((r) => r.path === '/');
-    if (routeList.length) return flattenRoute(routeList[0].children!, true, true);
+    if (routeList.length) return flattenRoute(routeList, true, true);
     return [];
 }
 // 最外层路由
