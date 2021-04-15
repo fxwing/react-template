@@ -10,6 +10,7 @@ export interface Config {
     USER_LOCAL_KEY: string; // 用户信息 localStorage 的key
     SETTING_LOCAL_KEY: string; // setting localStorage的key
     layout: typeof layoutArr[number]; //  菜单栏位置
+    API_URL: string; //线上环境请求的url
 }
 
 export const config: Config = {
@@ -18,5 +19,6 @@ export const config: Config = {
     TOKEN_EXPIRES: 7,
     USER_LOCAL_KEY: 'USER_LOCAL_KEY',
     SETTING_LOCAL_KEY: 'SETTING_LOCAL_KEY',
-    layout: 'side'
+    layout: 'side',
+    API_URL: 'www.baidu.com'
 };

@@ -30,7 +30,9 @@ const AsyncRoutes: FC<Props> = (props: Props): ReactElement => {
     const dispatch = useDispatch();
     // 异步获取
     if (!init) {
-        dispatch(setSideBarRoutes(defaultRoute));
+        setTimeout(() => {
+            dispatch(setSideBarRoutes(defaultRoute));
+        }, 2000);
         return <Spin className="layout__loading"></Spin>;
     }
     return (
