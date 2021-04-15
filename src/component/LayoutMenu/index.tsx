@@ -1,6 +1,6 @@
 import React, { useMemo, memo } from 'react';
 import classNames from 'classnames/bind';
-import { Menu } from 'antd';
+import { Menu, Spin } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -20,9 +20,11 @@ export const routeIcons: { [key: string]: ReactElement } = {
 };
 // menu中的数据需要redux中异步请求中获取到的routes
 // 分开渲染  menu  和submenu  在submenu中根据children递归  renderRoute 针对route[]的一个
-function LayoutSliderBar({}: Props): ReactElement {
+function LayoutMenu({}: Props): ReactElement {
     const routes: IRoute[] = useSelector((state: IStoreState) => state.app.routes);
     const renderRoutes = useMemo(() => _.map(routes, (route) => renderMenu(route)), [routes]);
+    console.log(routes);
+    if (_.isEmpty(routes)) return <Spin className="layout__loading"></Spin>;
     return (
         <>
             <Menu mode="inline">{renderRoutes}</Menu>
@@ -71,4 +73,4 @@ function renderTitle(meta: IRouteMeta): ReactNode {
         </span>
     );
 }
-export default memo(LayoutSliderBar);
+export default memo(LayoutMenu);
