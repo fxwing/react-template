@@ -10,8 +10,9 @@ interface IProps {
 const FormWrap: FC<IProps> = (props: IProps) => {
     const { children, className } = props;
     const defaultStyle = {
-        width: '300px',
-        margin: '20px auto 0'
+        width: '350px',
+        margin: 'auto',
+        paddingTop: '50px'
     };
     return (
         <div className={className} style={defaultStyle}>

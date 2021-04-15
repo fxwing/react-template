@@ -68,15 +68,14 @@ const RecoveryPwd: FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Row justify="center">
-                <Col>
-                    <Steps progressDot current={current}>
-                        <Step title="验证手机号"></Step>
-                        <Step title="填写新密码"></Step>
-                        <Step title="完成修改"></Step>
-                    </Steps>
-                </Col>
-            </Row>
+            <section className={style.step}>
+                <Steps progressDot current={current}>
+                    <Step title="验证手机号"></Step>
+                    <Step title="填写新密码"></Step>
+                    <Step title="完成修改"></Step>
+                </Steps>
+            </section>
+
             <FormWrap>
                 <Form form={form} onFinish={onSubmit}>
                     {(() => {
