@@ -1,9 +1,8 @@
 /**
  * route 的配置文件
  */
-import React from 'react';
-
-export interface IRouteMate {
+import React, { ReactNode } from 'react';
+export interface IRouteMeta {
     title: string;
     icon?: string;
 }
@@ -11,12 +10,13 @@ export interface IRouteBase {
     path: string; //路由路径
     component?: any; // 路由组件
     redirect?: string; // 302 重定向跳转
-    meta: IRouteMate; // 路由信息
+    meta: IRouteMeta; // 路由信息
     auth?: boolean; // 是否权限检验，false不校验  不存在和设置为true为校验 子路由继承父路由auth
 }
 export interface IRoute extends IRouteBase {
     children?: IRoute[];
 }
+
 // 默认全部路由配置
 // 第一级路由为最外层路由   方便以后在进入系统外拓展
 // 一共 两个路由  一个登录  一个系统
