@@ -28,13 +28,13 @@ function LayoutMenu({}: Props): ReactElement {
 
     const renderRoutes = useMemo(() => _.map(routes, (route) => renderMenu(route)), [routes]);
     const rootSubmenuKeys = useMemo(() => _.map(_.filter(routes, 'children'), 'path'), [routes]);
-    const [openKeys, setOpenKeys] = useState<Array<string>>(getPageKey(pathname));
+    const [openKeys, setOpenKeys] = useState<Array<string>>([]);
 
     useEffect(() => {
         const openKeys = getPageKey(pathname);
         setOpenKeys(openKeys);
         return () => {};
-    }, []);
+    }, [pathname]);
 
     const onOpenChange = (keys: any[]) => {
         if (collapsed) return false;
