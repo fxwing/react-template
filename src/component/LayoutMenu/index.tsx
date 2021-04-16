@@ -1,15 +1,15 @@
-import React, { useMemo, memo } from 'react';
+import React, { useMemo, memo, Key, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Menu, Spin } from 'antd';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import _ from 'lodash';
 import { config } from '@/config/index';
 import { DashboardTwoTone } from '@ant-design/icons';
+import { getPageKey } from '@/router/utils';
 import type { ReactElement, ReactNode } from 'react';
 import type { IStoreState } from '@store/type';
 import type { IRoute, IRouteMeta } from '@/router/config';
-
 import style from './index.less';
 const cx = classNames.bind(style);
 const { SubMenu } = Menu;
@@ -21,19 +21,47 @@ export const routeIcons: { [key: string]: ReactElement } = {
 // menu中的数据需要redux中异步请求中获取到的routes
 // 分开渲染  menu  和submenu  在submenu中根据children递归  renderRoute 针对route[]的一个
 function LayoutMenu({}: Props): ReactElement {
+    const location = useLocation();
+    const { pathname } = location;
     const routes: IRoute[] = useSelector((state: IStoreState) => state.app.routes);
+    const collapsed: boolean = useSelector((state: IStoreState) => state.setting.collapsed);
+
     const renderRoutes = useMemo(() => _.map(routes, (route) => renderMenu(route)), [routes]);
-    console.log(routes);
+    const rootSubmenuKeys = useMemo(() => _.map(_.filter(routes, 'children'), 'path'), [routes]);
+    const [openKeys, setOpenKeys] = useState<Array<string>>(getPageKey(pathname));
+
+    useEffect(() => {
+        const openKeys = getPageKey(pathname);
+        setOpenKeys(openKeys);
+        return () => {};
+    }, []);
+
+    const onOpenChange = (keys: any[]) => {
+        if (collapsed) return false;
+        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+    };
     if (_.isEmpty(routes)) return <Spin className="layout__loading"></Spin>;
     return (
         <>
-            <Menu mode="inline">{renderRoutes}</Menu>
+            <Menu
+                mode="inline"
+                theme={'light'}
+                selectedKeys={[pathname]}
+                openKeys={openKeys}
+                onOpenChange={onOpenChange}
+            >
+                {renderRoutes}
+            </Menu>
         </>
     );
 }
 
 function renderMenu(route: IRoute): ReactElement {
-    console.log(route);
     if (route.children) {
         return renderSubRoute(route);
     } else {
@@ -67,9 +95,9 @@ function renderRoute(route: IRoute): ReactElement {
 function renderTitle(meta: IRouteMeta): ReactNode {
     const { title, icon } = meta;
     return (
-        <span className="menu-item-inner">
+        <span className={cx(style.meun_item, 'align--center')}>
             {icon ? routeIcons[icon] : null}
-            <span className="menu-item-title">{title}</span>
+            <span className={cx(style.menu_item__title)}>{title}</span>
         </span>
     );
 }

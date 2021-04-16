@@ -40,7 +40,7 @@ function renderRouteList(routeList: IRoute[]): ReactNode {
 
 const MainRoutes: FC<Props> = (props: Props): ReactElement => {
     const routeList = useMemo(() => renderRouteList(businessRouteList), []);
-    console.log(businessRouteList, routeList);
+    // console.log(businessRouteList, routeList);
     return (
         <>
             <AsyncRoutes>{routeList}</AsyncRoutes>

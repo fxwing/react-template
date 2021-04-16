@@ -67,7 +67,7 @@ export const routes: Array<IRoute> = [
         meta: {
             title: '系统'
         },
-        redirect: '/page1/one',
+        redirect: '/page2/one',
         children: [
             {
                 path: '/page1',
@@ -82,7 +82,23 @@ export const routes: Array<IRoute> = [
                         component: React.lazy(() => import('../view/page1')),
                         meta: {
                             title: 'page1/one'
-                        }
+                        },
+                        children: [
+                            {
+                                path: '/page1/one/one',
+                                component: React.lazy(() => import('../view/page1')),
+                                meta: {
+                                    title: 'page1/one/one'
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: '/page1/two',
+                        meta: {
+                            title: 'page1/two'
+                        },
+                        component: React.lazy(() => import('../view/page1'))
                     }
                 ]
             },

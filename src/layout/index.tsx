@@ -1,10 +1,11 @@
 import React, { memo, Suspense, createElement, useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { Spin, Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import LayoutMenu from '@/component/LayoutMenu';
 import MainRoutes from './MainRoutes';
+import { updateSetting } from '@/store/module/setting';
 import type { FC, MouseEventHandler } from 'react';
 import type { RouteComponentProps } from 'react-router-dom';
 import type { IStoreState } from '@store/type';
@@ -20,9 +21,9 @@ const LayoutComponent: FC<Props> = (props: Props) => {
     // console.log('layout的props', props);
     // 不是通过注入props中使用  放弃connect
     // 默认使用的 === 全等比较 对象的时候 最好使用浅比较
-    const { layout } = useSelector((state: IStoreState) => state.setting, shallowEqual);
-    // 折叠  回头放到redux
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const { layout, collapsed } = useSelector((state: IStoreState) => state.setting, shallowEqual);
+    const dispatch = useDispatch();
+
     return (
         <>
             <Layout className={style.layout}>
@@ -32,14 +33,7 @@ const LayoutComponent: FC<Props> = (props: Props) => {
                     collapsible
                     collapsed={collapsed}
                     theme={'light'}
-                    breakpoint="lg"
                     collapsedWidth="0"
-                    onBreakpoint={(broken) => {
-                        console.log(broken);
-                    }}
-                    onCollapse={(collapsed, type) => {
-                        console.log(collapsed, type);
-                    }}
                 >
                     <div className="logo" />
                     <LayoutMenu />
@@ -50,7 +44,9 @@ const LayoutComponent: FC<Props> = (props: Props) => {
                         {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: style.trigger,
                             onClick: (() =>
-                                setCollapsed(!collapsed)) as MouseEventHandler<HTMLSpanElement>
+                                dispatch(
+                                    updateSetting({ collapsed: !collapsed })
+                                )) as MouseEventHandler<HTMLSpanElement>
                         })}
                         header
                     </Header>

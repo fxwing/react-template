@@ -10,9 +10,11 @@ const localSetting: Partial<Setting> = localStore.getValue(config.SETTING_LOCAL_
 
 export interface Setting {
     layout: Config['layout'];
+    collapsed: boolean;
 }
 const defaultSetting: Setting = {
     layout: config['layout'],
+    collapsed: false,
     ...localSetting
 };
 // type

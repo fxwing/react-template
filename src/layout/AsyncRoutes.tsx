@@ -13,7 +13,6 @@ interface Props {
 }
 
 const TransitionMain: FC<{ children: ReactNode }> = ({ children }: { children: ReactNode }) => {
-    const location = useLocation();
     return (
         <>
             <TransitionGroup>
@@ -56,23 +55,37 @@ const defaultRoute = [
                 path: '/page1/one',
                 meta: {
                     title: 'page1/one'
+                },
+                children: [
+                    {
+                        path: '/page1/one/one',
+                        meta: {
+                            title: 'page1/one/one'
+                        }
+                    }
+                ]
+            },
+            {
+                path: '/page1/two',
+                meta: {
+                    title: 'page1/two'
+                }
+            }
+        ]
+    },
+    {
+        path: '/page2',
+        meta: {
+            title: 'page2',
+            icon: 'dashborad'
+        },
+        children: [
+            {
+                path: '/page2/one',
+                meta: {
+                    title: 'page2/one'
                 }
             }
         ]
     }
-    // {
-    //     path: '/page2',
-    //     meta: {
-    //         title: 'page2',
-    //         icon: 'dashborad'
-    //     },
-    //     children: [
-    //         {
-    //             path: '/page2/one',
-    //             meta: {
-    //                 title: 'page2/one'
-    //             }
-    //         }
-    //     ]
-    // }
 ];

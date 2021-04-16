@@ -1,5 +1,6 @@
 import type { IRoute } from './config';
 import { routes } from './config';
+import _ from 'lodash';
 /**
  * 递归获取到全部的route  转化为一位数组
  * @param routeList 路由
@@ -21,11 +22,11 @@ export const flattenRoute = (routeList: IRoute[], deep: boolean, auth: boolean):
     return result;
 };
 
-// 获取最外层路由
+// 获取最外层一层路由
 function getLayoutRoute(): IRoute[] {
     return flattenRoute(routes, false, false);
 }
-//获取登陆和介绍的路由(系统路由  登录注册)
+//获取登陆注册路由
 function getSystemRoute(): IRoute[] {
     const routeList = routes.filter((r) => r.path === '/system');
     if (routeList.length) return flattenRoute(routeList, true, false);
@@ -48,4 +49,17 @@ export const businessRouteList: Array<IRoute> = getBusinessRoute();
 export function getPageTitle(routeList: IRoute[]): string {
     const route = routeList.find((route) => route.path === window.location.pathname);
     return route ? route?.meta?.title : '';
+}
+//根据pathname 获取当前subMenu路由的各个key
+// /page1/one/1  => ['/page','/page/one']
+export function getPageKey(pathName: string): Array<string> {
+    const strArr = _.filter(_.split(pathName, '/'), Boolean);
+    return strArr.reduce((prev: string[], curr, index, arr) => {
+        const restStr: string = '/' + arr.slice(0, index + 1).join('/');
+        // 最后一个不加进去
+        if (index < arr.length - 1) {
+            prev.push(restStr);
+        }
+        return prev;
+    }, []);
 }
