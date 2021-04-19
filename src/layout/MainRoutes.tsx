@@ -5,7 +5,7 @@ import AsyncRoutes from './AsyncRoutes';
 import Auth from './Auth';
 import Helmet from '@component/Helmet';
 import { businessRouteList, getPageTitle } from '@router/utils';
-
+import PageWrap from '../component/Pagewrap';
 import type { FC, ReactNode, ReactElement } from 'react';
 import type { RouteComponentProps } from 'react-router-dom';
 import type { IRoute } from '@router/config';
@@ -27,7 +27,9 @@ function renderRouteList(routeList: IRoute[]): ReactNode {
                             {redirect ? (
                                 <Redirect to={redirect} push></Redirect>
                             ) : (
-                                <CurrComponent {...props}></CurrComponent>
+                                <PageWrap>
+                                    <CurrComponent {...props}></CurrComponent>
+                                </PageWrap>
                             )}
                         </Auth>
                     );

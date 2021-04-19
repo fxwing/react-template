@@ -50,16 +50,30 @@ export function getPageTitle(routeList: IRoute[]): string {
     const route = routeList.find((route) => route.path === window.location.pathname);
     return route ? route?.meta?.title : '';
 }
-//根据pathname 获取当前subMenu路由的各个key
-// /page1/one/1  => ['/page','/page/one']
-export function getPageKey(pathName: string): Array<string> {
+
+/**
+ * 根据pathname 获取当前subMenu路由的各个key
+ * /page1/one/1  => ['/page','/page/one']
+ * @export
+ * @param {string} pathName
+ * @param {boolean} [needLast=false] 是否需要最后一个
+ * @returns {Array<string>}
+ */
+export function getPageKey(pathName: string, needLast: boolean = false): Array<string> {
     const strArr = _.filter(_.split(pathName, '/'), Boolean);
     return strArr.reduce((prev: string[], curr, index, arr) => {
         const restStr: string = '/' + arr.slice(0, index + 1).join('/');
         // 最后一个不加进去
-        if (index < arr.length - 1) {
+        if (index < arr.length - 1 && !needLast) {
+            prev.push(restStr);
+        } else if (needLast) {
             prev.push(restStr);
         }
         return prev;
     }, []);
+}
+// 获取面包屑  route
+export function getBreadCrumbs(pathnames: string, basename?: string): Array<IRoute> {
+    const pathList = getPageKey(pathnames, true);
+    return businessRouteList.filter((item) => pathList.includes(`${basename || ''}${item.path}`));
 }

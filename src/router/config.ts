@@ -79,7 +79,7 @@ export const routes: Array<IRoute> = [
                 children: [
                     {
                         path: '/page1/one',
-                        component: React.lazy(() => import('../view/page1')),
+                        redirect: '/page1/one/one',
                         meta: {
                             title: 'page1/one'
                         },
