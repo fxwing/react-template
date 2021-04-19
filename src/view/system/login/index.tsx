@@ -17,7 +17,7 @@ import type { MouseEvent, ChangeEvent } from 'react';
 import type { UserState } from '@store/module/user';
 
 const { TabPane } = Tabs;
-const cx = classNames.bind(style);
+const cns = classNames.bind(style);
 interface Props extends RouteComponentProps {
     setUserInfo(userInfo: UserState): void;
 }
@@ -94,7 +94,7 @@ const Login = (props: Props) => {
                     </Form.Item>
                     <Form.Item>
                         <div className="justify--between">
-                            <div className={cx(style.login_others, 'align--center')}>
+                            <div className={cns(style.login_others, 'align--center')}>
                                 <span>其他登录方式</span>
                                 <GithubOutlined className={style.login_others_icon} />
                                 <ZhihuOutlined className={style.login_others_icon} />

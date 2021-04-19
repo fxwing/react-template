@@ -4,6 +4,7 @@ import { Spin, Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import LayoutMenu from '@/component/LayoutMenu';
+import LayoutHeader from '@/component/LayoutHeader';
 import MainRoutes from './MainRoutes';
 import { updateSetting } from '@/store/module/setting';
 import type { FC, MouseEventHandler } from 'react';
@@ -11,7 +12,7 @@ import type { RouteComponentProps } from 'react-router-dom';
 import type { IStoreState } from '@store/type';
 import style from './index.less';
 
-const cx = classNames.bind(style);
+const cns = classNames.bind(style);
 const { Header, Sider, Content } = Layout;
 console.log(style);
 
@@ -40,7 +41,9 @@ const LayoutComponent: FC<Props> = (props: Props) => {
                     {/* <Spin className="layout__loading"></Spin> */}
                 </Sider>
                 <Layout className={style.layout_content}>
-                    <Header className={style.layout_header}>
+                    <Header
+                        className={cns('align--center', 'justify--between', style.layout_header)}
+                    >
                         {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: style.trigger,
                             onClick: (() =>
@@ -48,7 +51,7 @@ const LayoutComponent: FC<Props> = (props: Props) => {
                                     updateSetting({ collapsed: !collapsed })
                                 )) as MouseEventHandler<HTMLSpanElement>
                         })}
-                        header
+                        <LayoutHeader />
                     </Header>
                     <Content className={style.content}>
                         <Suspense fallback={<Spin className="layout__loading"></Spin>}>

@@ -11,7 +11,7 @@ import type { ReactElement, ReactNode } from 'react';
 import type { IStoreState } from '@store/type';
 import type { IRoute, IRouteMeta } from '@/router/config';
 import style from './index.less';
-const cx = classNames.bind(style);
+const cns = classNames.bind(style);
 const { SubMenu } = Menu;
 interface Props {}
 // route-icon的map
@@ -95,9 +95,9 @@ function renderRoute(route: IRoute): ReactElement {
 function renderTitle(meta: IRouteMeta): ReactNode {
     const { title, icon } = meta;
     return (
-        <span className={cx(style.meun_item, 'align--center')}>
+        <span className={cns(style.meun_item, 'align--center')}>
             {icon ? routeIcons[icon] : null}
-            <span className={cx(style.menu_item__title)}>{title}</span>
+            <span className={cns(style.menu_item__title)}>{title}</span>
         </span>
     );
 }
