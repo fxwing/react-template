@@ -48,7 +48,7 @@ const userReducer: Reducer<UserState, IAction> = (
         case types.SET_USER_LOGOUT:
             removeToken();
             localStore.removeValue(config.USER_LOCAL_KEY);
-            return { ...state };
+            return { ...defaultUserState };
         default:
             return { ...state };
     }
